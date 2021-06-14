@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -61,6 +61,7 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 const REACT_APP = /^REACT_APP_/i;
 
 function getClientEnvironment(publicUrl) {
+  const flavorPath = process.env.FLAVOR_PATH || '../src/flavors/DevFlavor.ts'
   const raw = Object.keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce(
@@ -100,7 +101,7 @@ function getClientEnvironment(publicUrl) {
     }, {}),
   };
 
-  return { raw, stringified };
+  return { raw, stringified, flavorPath };
 }
 
 module.exports = getClientEnvironment;

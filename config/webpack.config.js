@@ -1,4 +1,4 @@
-'use strict';
+
 
 const fs = require('fs');
 const path = require('path');
@@ -85,15 +85,14 @@ module.exports = function (webpackEnv) {
 
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
-  const isEnvProductionProfile =
-    isEnvProduction && process.argv.includes('--profile');
+  const isEnvProductionProfile = isEnvProduction && process.argv.includes('--profile');
 
   // We will provide `paths.publicUrlOrPath` to our app
   // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
   // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
   // Get environment variables to inject into our app.
   const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
-
+  const flavor = JSON.stringify(require(env.flavorPath))
   const shouldUseReactRefresh = env.raw.FAST_REFRESH;
 
   // common function to get style loaders
@@ -749,6 +748,9 @@ module.exports = function (webpackEnv) {
       net: 'empty',
       tls: 'empty',
       child_process: 'empty',
+    },
+    externals: {
+      'Flavor': flavor
     },
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter

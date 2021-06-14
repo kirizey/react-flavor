@@ -23,6 +23,7 @@
     "bfj": "^7.0.2",
     "camelcase": "^6.1.0",
     "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "cross-env": "^7.0.3",
     "css-loader": "4.3.0",
     "dotenv": "8.2.0",
     "dotenv-expand": "5.1.0",
@@ -74,7 +75,8 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "cross-env FLAVOR_PATH='../src/flavors/dev.flavor.json' node scripts/start.js",
+    "start:appid1": "cross-env FLAVOR_PATH='../src/flavors/appid1.flavor.json' node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js"
   },
